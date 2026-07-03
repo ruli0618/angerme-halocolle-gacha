@@ -35,6 +35,10 @@ dialog{width:min(480px,92vw);max-height:82vh;border:0;border-radius:24px;padding
 #viewer{width:min(500px,94vw);max-height:92vh;padding:15px;border-radius:22px;overflow:visible;background:#181320}#viewer::backdrop{background:#21152dd9;backdrop-filter:blur(8px)}.viewer-close{position:absolute;z-index:2;right:-8px;top:-8px;border:0;width:38px;height:38px;border-radius:50%;color:var(--ink);background:white;font-size:21px;cursor:pointer;box-shadow:0 4px 14px #0005}.viewer-media{height:min(70vh,650px);border-radius:13px;overflow:hidden;display:grid;place-items:center;background:#08070a}.viewer-media img,.viewer-media video{display:block;width:100%;height:100%;object-fit:contain}.viewer-info{display:flex;align-items:center;gap:10px;padding:13px 4px 2px;color:white}.viewer-info span{color:#ffd142;letter-spacing:2px}.viewer-info b{font-size:12px;flex:1}.viewer-info small{color:#ff91ba;font-size:13px;font-weight:900}
 @media(max-width:600px){
   .app{max-width:none;box-shadow:none}
+  .stage{padding:0;background:#000;backdrop-filter:none}
+  .stage .video-frame{width:100vw;height:100vh;height:100dvh}
+  .stage video{width:100%;height:100%;max-height:none;border-radius:0;object-fit:contain;box-shadow:none}
+  .stage .skip{right:max(12px,env(safe-area-inset-right));bottom:calc(12px + env(safe-area-inset-bottom))}
   #collection{inset:0;width:100%;max-width:none;height:100vh;height:100dvh;max-height:none;margin:0;padding:calc(12px + env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) calc(90px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));border-radius:0;overflow-y:auto}
   #collection .dialog-head{position:sticky;z-index:5;top:calc(-12px - env(safe-area-inset-top));margin:calc(-12px - env(safe-area-inset-top)) calc(-1 * max(16px,env(safe-area-inset-right))) 14px;padding:calc(12px + env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) 8px max(16px,env(safe-area-inset-left));background:#fffffff2;backdrop-filter:blur(12px)}
   #collection .dialog-head h2{max-width:calc(100vw - 90px);font-size:18px;line-height:1.35}
