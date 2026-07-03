@@ -32,12 +32,34 @@ function selectPack(id,goHome=true){
   $("#packInfo").textContent=`全${pack.cards.length}種 · レアリティ ★${rarities.join("・★")}`;
   renderRates();updateCount();
   localStorage.setItem("halocolle-last-pack",pack.id);
+  const url=new URL(location.href);
+  url.searchParams.set("pack",pack.id);
+  history.replaceState(history.state,"",url);
   if(goHome)home();
 }
 function initPacks(){
   $("#packSelect").innerHTML=packs.map(item=>`<option value="${item.id}">${item.displayName}</option>`).join("");
   $("#packSelect").onchange=event=>selectPack(event.target.value);
-  selectPack(localStorage.getItem("halocolle-last-pack")||packs[0].id,false);
+  const requested=new URLSearchParams(location.search).get("pack");
+  const initial=packs.some(item=>item.id===requested)?requested:(localStorage.getItem("halocolle-last-pack")||packs[0].id);
+  selectPack(initial,false);
+}
+async function shareCurrentPack(){
+  const url=new URL(location.href);
+  url.search="";
+  url.hash="";
+  url.searchParams.set("pack",pack.id);
+  const shareData={title:`${pack.displayName}｜ハロコレ`,text:`「${pack.displayName}」のガチャを遊ぼう！`,url:url.toString()};
+  try{
+    if(navigator.share)await navigator.share(shareData);
+    else if(navigator.clipboard){
+      await navigator.clipboard.writeText(shareData.url);
+      const button=$("#sharePack");button.textContent="リンクをコピーしました";
+      setTimeout(()=>button.textContent="このガチャを共有",1800);
+    }else window.prompt("このリンクをコピーしてください",shareData.url);
+  }catch(error){
+    if(error.name!=="AbortError")window.prompt("このリンクをコピーしてください",shareData.url);
+  }
 }
 function pick(){
   const distribution=weights();
@@ -127,6 +149,7 @@ function closeDialog(dialog){
 }
 
 $("#draw").onclick=()=>draw(1);$("#again").onclick=()=>draw(1);
+$("#sharePack").onclick=shareCurrentPack;
 $("#drawTen").onclick=()=>draw(10);$("#againTen").onclick=()=>draw(10);
 $("#skip").onclick=reveal;$("#intro").onended=reveal;$("#back").onclick=home;
 $("#showHistory").onclick=()=>{renderCollection();openDialog($("#collection"))};

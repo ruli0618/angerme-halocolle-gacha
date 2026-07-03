@@ -10,6 +10,7 @@ button{font:inherit}.sound,.history-link,.secondary,.skip{border:0;background:tr
 .hero{text-align:center;padding:10px max(24px,env(safe-area-inset-right)) calc(30px + env(safe-area-inset-bottom)) max(24px,env(safe-area-inset-left));min-height:calc(100dvh - 74px - env(safe-area-inset-top));position:relative}
 .eyebrow{display:inline-block;margin:4px 0 8px;padding:6px 14px;border-radius:20px;background:#fff0f7;color:var(--pink);font-size:10px;letter-spacing:2px}
 .pack-picker{display:block;margin:2px auto 10px;font-size:9px;letter-spacing:1px;color:#8c7b9d}.pack-picker select{display:block;width:min(420px,100%);margin:6px auto 0;padding:11px 38px 11px 13px;border:1px solid #e3d8ed;border-radius:12px;background:#fff;color:var(--ink);font:700 12px "Noto Sans JP",sans-serif;white-space:nowrap;text-overflow:ellipsis}
+.share-pack{margin:-2px 0 10px;padding:7px 13px;border:1px solid #e8dff1;border-radius:20px;color:var(--purple);background:#fff;font-size:10px;font-weight:800;cursor:pointer}
 h1{margin:0;font-size:clamp(30px,9vw,45px);font-weight:900;letter-spacing:-2px}.lead{font-family:"Noto Sans JP";font-size:13px;color:#776b84}
 #packTitle{max-width:440px;margin:0 auto;font-size:clamp(21px,6vw,32px);line-height:1.25;letter-spacing:-1px}
 .featured{height:310px;position:relative;display:grid;place-items:center;margin:-6px 0 -8px}
