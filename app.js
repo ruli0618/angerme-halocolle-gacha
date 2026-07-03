@@ -1,6 +1,7 @@
 const packs=window.ANGERME_PACKS;
 const birthdayWeights={2:78.3,3:15,4:5,5:1.7};
 const standardWeights={1:50,2:28,3:15,4:6,5:1};
+const maxFourWeights={2:65,3:30,4:5};
 const $=selector=>document.querySelector(selector);
 let pack,selectedCards=[],selected,owned={},muted=false;
 
@@ -12,7 +13,8 @@ function loadOwned(){
     : saved;
 }
 function weights(){
-  const source=pack.birthday?birthdayWeights:standardWeights;
+  const maxRarity=Math.max(...pack.cards.map(card=>card.r));
+  const source=maxRarity===4?maxFourWeights:(pack.birthday?birthdayWeights:standardWeights);
   const available=[1,2,3,4,5].filter(r=>pack.cards.some(card=>card.r===r));
   const total=available.reduce((sum,r)=>sum+(source[r]||0),0);
   return available.map(r=>({r,value:(source[r]||0)/total*100}));
