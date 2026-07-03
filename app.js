@@ -113,19 +113,36 @@ function openViewer(id){
   $("#viewerName").textContent=`${pack.displayName} · No.${card.id}`;
   $("#viewerCount").textContent=`×${owned[id]||0}`;
   $("#viewerMedia").innerHTML=cardMedia(card,card.type==="video"?"controls autoplay playsinline":"");
-  $("#viewer").showModal();
+  openDialog($("#viewer"));
 }
 function updateCount(){$("#count").textContent=Object.values(owned).reduce((sum,n)=>sum+n,0)}
+function openDialog(dialog){
+  dialog.showModal();
+  history.pushState({halocolleDialog:dialog.id},"");
+}
+function closeDialog(dialog){
+  if(!dialog.open)return;
+  dialog.close();
+  if(history.state?.halocolleDialog===dialog.id)history.back();
+}
 
 $("#draw").onclick=()=>draw(1);$("#again").onclick=()=>draw(1);
 $("#drawTen").onclick=()=>draw(10);$("#againTen").onclick=()=>draw(10);
 $("#skip").onclick=reveal;$("#intro").onended=reveal;$("#back").onclick=home;
-$("#showHistory").onclick=()=>{renderCollection();$("#collection").showModal()};
-$("#closeHistory").onclick=()=>$("#collection").close();
-$("#closeViewer").onclick=()=>{$("#viewerMedia").innerHTML="";$("#viewer").close()};
+$("#showHistory").onclick=()=>{renderCollection();openDialog($("#collection"))};
+$("#closeHistory").onclick=()=>closeDialog($("#collection"));
+$("#closeHistoryBottom").onclick=()=>closeDialog($("#collection"));
+$("#closeViewer").onclick=()=>{$("#viewerMedia").innerHTML="";closeDialog($("#viewer"))};
 $("#sound").onclick=()=>{
   muted=!muted;$("#sound").textContent=muted?"♪ OFF":"♪ ON";
   $("#intro").muted=muted;
   const video=$("#mediaShell video");if(video)video.muted=muted;
 };
+window.addEventListener("popstate",event=>{
+  if($("#viewer").open&&event.state?.halocolleDialog!=="viewer"){
+    $("#viewerMedia").innerHTML="";$("#viewer").close();
+  }else if($("#collection").open&&event.state?.halocolleDialog!=="collection"){
+    $("#collection").close();
+  }
+});
 initPacks();
