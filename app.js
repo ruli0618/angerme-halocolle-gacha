@@ -1,7 +1,7 @@
 const packs=window.ANGERME_PACKS;
 const birthdayWeights={2:78.3,3:15,4:5,5:1.7};
 const standardWeights={1:50,2:28,3:15,4:6,5:1};
-const maxFourWeights={2:65,3:30,4:5};
+const maxFourWeights={2:77,3:15,4:8};
 const $=selector=>document.querySelector(selector);
 let pack,selectedCards=[],selected,owned={},muted=false;
 
