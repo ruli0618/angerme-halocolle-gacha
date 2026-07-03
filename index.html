@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ハロコレ ガチャ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header>
+      <div class="brand"><span>HELLO! PROJECT</span><b>ハロコレ</b></div>
+      <button class="sound" id="sound" aria-label="音声の切り替え">♪ ON</button>
+    </header>
+
+    <section class="hero" id="home">
+      <div class="sparkles" aria-hidden="true"></div>
+      <p class="eyebrow">ANGERME CARD GACHA</p>
+      <label class="pack-picker">カードパック
+        <select id="packSelect"></select>
+      </label>
+      <h1 id="packTitle">ANGERME</h1>
+      <p class="lead" id="packInfo">カードパックを選んでコレクションしよう！</p>
+      <div class="featured">
+        <div class="card-back"><span>H</span><small>HALO COLLE</small></div>
+        <div class="rings"></div>
+      </div>
+      <div class="rates" id="rates"></div>
+      <button class="draw" id="draw"><small>TAP TO DRAW</small>ガチャを引く</button>
+      <button class="draw ten-draw" id="drawTen"><small>10 CARDS</small>10連ガチャを引く</button>
+      <button class="history-link" id="showHistory">コレクションを見る <b id="count">0</b></button>
+    </section>
+
+    <section class="stage hidden" id="stage" aria-live="polite">
+      <div class="video-frame">
+        <video id="intro" playsinline preload="auto"></video>
+        <button class="skip" id="skip">SKIP ›</button>
+      </div>
+    </section>
+
+    <section class="result hidden" id="result">
+      <div class="burst"></div>
+      <p class="new" id="newLabel">NEW!</p>
+      <div class="stars" id="stars"></div>
+      <div class="media-shell" id="mediaShell"></div>
+      <p class="rarity" id="rarity"></p>
+      <p class="card-name" id="cardName"></p>
+      <button class="draw again" id="again">もう一度引く</button>
+      <button class="draw ten-draw" id="againTen">10連ガチャを引く</button>
+      <button class="secondary" id="back">トップへ戻る</button>
+    </section>
+
+    <dialog id="collection">
+      <div class="dialog-head">
+        <div><small>MY COLLECTION</small><h2 id="collectionTitle">獲得したカード</h2></div>
+        <button id="closeHistory" aria-label="閉じる">×</button>
+      </div>
+      <div class="collection-grid" id="collectionGrid"></div>
+      <p class="empty" id="empty">まだカードを獲得していません</p>
+    </dialog>
+    <dialog id="viewer">
+      <button class="viewer-close" id="closeViewer" aria-label="閉じる">×</button>
+      <div class="viewer-media" id="viewerMedia"></div>
+      <div class="viewer-info">
+        <span id="viewerStars"></span>
+        <b id="viewerName"></b>
+        <small id="viewerCount"></small>
+      </div>
+    </dialog>
+  </main>
+  <script src="packs.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
