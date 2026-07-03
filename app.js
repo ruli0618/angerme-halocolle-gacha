@@ -5,7 +5,9 @@ const maxFourWeights={2:77,3:15,4:8};
 const $=selector=>document.querySelector(selector);
 let pack,selectedCards=[],selected,owned={},muted=false;
 
-function storageKey(){return `halocolle-angerme-${pack.id}`}
+function storageKey(){
+  return pack.group==="ANGERME"?`halocolle-angerme-${pack.id}`:`halocolle-beyooooonds-${pack.id}`;
+}
 function loadOwned(){
   const saved=JSON.parse(localStorage.getItem(storageKey())||"{}");
   owned=Array.isArray(saved)
@@ -25,20 +27,35 @@ function renderRates(){
 }
 function selectPack(id,goHome=true){
   pack=packs.find(item=>item.id===id)||packs[0];
+  $("#groupSelect").value=pack.group;
+  renderPackOptions(pack.group);
   loadOwned();
   $("#packSelect").value=pack.id;
+  $("#groupEyebrow").textContent=`${pack.group} CARD GACHA`;
   $("#packTitle").textContent=pack.displayName;
   const rarities=[...new Set(pack.cards.map(card=>card.r))].sort((a,b)=>a-b);
   $("#packInfo").textContent=`全${pack.cards.length}種 · レアリティ ★${rarities.join("・★")}`;
   renderRates();updateCount();
   localStorage.setItem("halocolle-last-pack",pack.id);
+  localStorage.setItem(`halocolle-last-pack-${pack.group}`,pack.id);
   const url=new URL(location.href);
   url.searchParams.set("pack",pack.id);
   history.replaceState(history.state,"",url);
   if(goHome)home();
 }
+function renderPackOptions(group){
+  $("#packSelect").innerHTML=packs.filter(item=>item.group===group)
+    .map(item=>`<option value="${item.id}">${item.displayName}</option>`).join("");
+}
 function initPacks(){
-  $("#packSelect").innerHTML=packs.map(item=>`<option value="${item.id}">${item.displayName}</option>`).join("");
+  const groups=[...new Set(packs.map(item=>item.group))];
+  $("#groupSelect").innerHTML=groups.map(group=>`<option value="${group}">${group}</option>`).join("");
+  $("#groupSelect").onchange=event=>{
+    const group=event.target.value;
+    const groupPacks=packs.filter(item=>item.group===group);
+    const remembered=localStorage.getItem(`halocolle-last-pack-${group}`);
+    selectPack(groupPacks.some(item=>item.id===remembered)?remembered:groupPacks[0].id);
+  };
   $("#packSelect").onchange=event=>selectPack(event.target.value);
   const requested=new URLSearchParams(location.search).get("pack");
   const initial=packs.some(item=>item.id===requested)?requested:(localStorage.getItem("halocolle-last-pack")||packs[0].id);

@@ -1,5 +1,5 @@
-# ANGERME ハロコレガチャ
+# ハロコレ グループガチャ
 
-ブラウザで遊べる非公式ファンメイドのカードガチャです。
+ANGERME・BEYOOOOONDSのカードで遊べる非公式ファンメイドのガチャです。
 
 公開ページ: https://ruli0618.github.io/angerme-halocolle-gacha/
